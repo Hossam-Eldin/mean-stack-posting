@@ -1,3 +1,15 @@
+# Back End
+
+this node js express server 
+
+
+## BackEnd Server 
+
+    start by install node `npm install` than  run it by using nodemon `nodemon server` 
+
+    port is localhost:3000 if you want to change it, you will find the option on server.js file 
+
+    
 # FrontEnd
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.4.
