@@ -1,20 +1,32 @@
 <mat-card class="mat1">
-  <form action="" (submit)="onAddPost(postForm)" #postForm="ngForm">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form action="" [formGroup]="form" (submit)="onSavePost()"   *ngIf="!isLoading">
+   
     <mat-form-field class="example-full-width">
       <input id="" matInput placeholder="Post Title"
-       ngModel
         name="title"
-         required     
-         #title="ngModel"
+        formControlName="title"
          >
     </mat-form-field>
-    <mat-error *ngIf="title.invalid">   please enter message. </mat-error>
-    <mat-form-field class="example-full-width">
-      <textarea id="" matInput placeholder="Post Conetent"
-       ngModel name="content" rows="6"
-        required #content="ngModel" ></textarea>
+   
+    <mat-error *ngIf="form.get('title').invalid">   please enter message. </mat-error>
+   
+    <div>
+        <button type="button" mat-stroked-button  (click)="imageInput.click()">Pick image</button> 
+        <input type="file" #imageInput class="imgInput" (change)="onImagePicked($event)" >
+    </div>
+     <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
+       <img [src]="imagePreview" [alt]="this.form.title"  >
+     </div> 
 
-      <mat-error *ngIf="content.invalid">   please enter message. </mat-error>
+    <mat-form-field class="example-full-width">
+      <textarea id="" matInput
+      formControlName="content"
+       placeholder="Post Conetent" 
+       name="content" 
+       rows="6" ></textarea>
+
+      <mat-error *ngIf="form.get('content').invalid">   please enter message. </mat-error>
 
     </mat-form-field>
 

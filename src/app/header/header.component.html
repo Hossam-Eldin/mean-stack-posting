@@ -1,3 +1,17 @@
 <mat-toolbar color="primary">
-  My App
+   <span>
+    My App
+  </span>
+
+  <ul class="nav-list">
+    <li>
+      <a [routerLink]="[ '/' ]" >Post List</a>
+    </li>
+  </ul>
+  <ul class="nav-list right-align">
+
+    <li>
+      <a mat-stroked-button class="btn-create" [routerLink]="[ '/create' ]" >New Post</a>
+    </li>
+  </ul>
 </mat-toolbar>

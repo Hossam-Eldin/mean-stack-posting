@@ -1,0 +1,21 @@
+.nav-list  li{
+    list-style:none;
+    display: inline;
+}
+.nav-list  a{
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.right-align{
+    float: right;
+    display: block;
+
+}
+
+.btn-create{
+    background: #fff;
+    color: #272727 !important;
+    font-weight: lighter !important;
+}
