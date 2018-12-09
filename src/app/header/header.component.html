@@ -10,14 +10,17 @@
   </ul>
   <ul class="nav-list right-align">
 
-    <li>
+    <li *ngIf="userIsAuthenticated">
       <a mat-stroked-button class="btn-create" [routerLink]="[ '/create' ]" >New Post</a>
     </li>
-    <li>
+    <li *ngIf="!userIsAuthenticated">
       <a mat-stroked-button class="btn-create" [routerLink]="[ '/login' ]" >login</a>
     </li>
-    <li>
+    <li *ngIf="!userIsAuthenticated">
       <a mat-stroked-button class="btn-create" [routerLink]="[ '/signup' ]" >sginup</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <button mat-stroked-button (click)="onLogout()" >logout</button>
     </li>
   </ul>
 </mat-toolbar>

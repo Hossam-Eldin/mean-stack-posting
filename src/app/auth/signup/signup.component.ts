@@ -7,6 +7,7 @@ import { AuthSerService} from '../auth-ser.service';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
+  isLoading = false;
 
   constructor(public authService: AuthSerService ) { }
 
@@ -17,6 +18,7 @@ export class SignupComponent implements OnInit {
     if (form.invalid) {
       return;
     }
+    this.isLoading = true;
     this.authService.createUser(form.value.email, form.value.password);
   }
 }

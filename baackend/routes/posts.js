@@ -103,7 +103,7 @@ router.get('/:id', (req, res, next) => {
 
 
 //get all posts 
-router.get('',checkAuth, (req, res, next) => {
+router.get('', (req, res, next) => {
    
     //pagination
     const pageSize = +req.query.pagesize;

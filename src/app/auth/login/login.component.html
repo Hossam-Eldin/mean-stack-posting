@@ -16,7 +16,9 @@
     </mat-form-field>
 
 
-    <button type="submit" color="primary" mat-raised-button>Login</button>
+    <button type="submit" color="primary" mat-raised-button *ngIf="!isLoading">Login</button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
 
   </form>
+
 </mat-card>
