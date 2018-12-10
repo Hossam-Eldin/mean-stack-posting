@@ -28,11 +28,13 @@ export class PostServiceService {
                 title: post.title,
                 content: post.content,
                 id: post._id,
-                imagePath: post.imagePath
+                imagePath: post.imagePath,
+                creator: post.creator
               };
         }), maxPosts: postData.maxPosts};
       }))
       .subscribe((transformedPostData) => {
+        console.log(transformedPostData);
         this.posts = transformedPostData.posts;
         this.postUpdated.next({posts: [...this.posts ], postCount: transformedPostData.maxPosts });
 
@@ -47,7 +49,7 @@ export class PostServiceService {
   /* for edit posts check the id  
    for the post exist and return copy from it */
   getPost(id: String) {
-    return this.http.get<{ id: String, title: String,  content: String, imagePath: string }>('http://localhost:3000/api/posts/' + id);
+    return this.http.get<{ id: string, title: string,  content: string, imagePath: string , creator: string}>('http://localhost:3000/api/posts/' + id);
   }
 
 
@@ -81,7 +83,8 @@ export class PostServiceService {
         id: id,
         title: title,
         content: content,
-        imagePath: image
+        imagePath: image,
+        creator: null
       };
     }
     this.http.put('http://localhost:3000/api/posts/' + id, postData).subscribe((response) => {
