@@ -1,8 +1,10 @@
+import { AuthSerService } from './../../auth/auth-ser.service';
 import { Post } from './../post.model';
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostServiceService } from '../post-service.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Subscription } from 'rxjs';
 // import { mimeType } from './mime-type.validator';
 
 @Component({
@@ -10,7 +12,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   templateUrl: './post-create.component.html',
   styleUrls: ['./post-create.component.scss']
 })
-export class PostCreateComponent implements OnInit {
+export class PostCreateComponent implements OnInit, OnDestroy {
 
   isLoading = false;
   model: any = [];
@@ -19,12 +21,21 @@ export class PostCreateComponent implements OnInit {
   imagePreview: any;
   private mode = 'create';
   private postId: string;
+  private authStatusSub: Subscription;
 
-  constructor(public postService: PostServiceService, public route: ActivatedRoute) { }
+  constructor(
+    public postService: PostServiceService, 
+    public route: ActivatedRoute,
+    private authService: AuthSerService) { }
 
 
 
   ngOnInit() {
+
+    this.authStatusSub =this.authService.getAuthSatusListener().subscribe(()=>{
+      this.isLoading =false;
+    })
+
     this.form = new FormGroup({
       title: new FormControl(null, { validators: [Validators.required, Validators.minLength(3)]  }),
       content: new FormControl(null, {validators: [ Validators.required] }),
@@ -95,6 +106,10 @@ onImagePicked(event: Event) {
          this.form.value.image);
     }
     this.form.reset();
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
 }

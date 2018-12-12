@@ -20,9 +20,11 @@ export class AuthSerService {
     const authData: AuthData = { email: email, password: password };
 
     this.http.post('http://localhost:3000/api/auth/signup', authData)
-      .subscribe(response => {
-        console.log(response);
-      });
+      .subscribe(() => {
+        this.router.navigate(['/']);
+      }, error => {
+        this.authSatusListener.next(false);
+      } );
   }
 
 
@@ -48,6 +50,8 @@ export class AuthSerService {
           // navgiate to home base
           this.router.navigate(['/']);
         }
+      }, error => {
+          this.authSatusListener.next(false);
       });
   }
 

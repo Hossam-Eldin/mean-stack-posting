@@ -57,7 +57,9 @@ router.post('', multer({ storage: storage }).single('image'),
                creator: createdPost.creator 
             }
         })
-    })
+    }).catch(error =>{
+        res.status(500).json({message: "creating  post faild" });
+    });
     // console.log(post);
 })
 
@@ -91,6 +93,8 @@ router.put('/:id',
         }else{
             res.status(401).json({ message: "Update Failed unauthorized!" });
         }
+    }).catch(error =>{
+        res.status(500).json({message: "couldent update post!" });
     });
 });
 
@@ -104,6 +108,8 @@ router.get('/:id', (req, res, next) => {
         } else {
             res.status(404).json({ message: 'post not found' })
         }
+    }).catch(error =>{
+        res.status(500).json({message: "fetching post faild" });
     })
 })
 
@@ -131,6 +137,8 @@ router.get('', (req, res, next) => {
             posts: fetchedPosts,
             maxPosts: count
         });
+    }).catch(error =>{
+        res.status(500).json({message: "geting all post faild" });
     });
 
     //res.send('hello world');
@@ -141,12 +149,15 @@ router.get('', (req, res, next) => {
 router.delete('/:id',
     checkAuth,
      (req, res, next) => {
-    Post.deleteOne({ _id: req.params.id ,  creator: req.userData.userId}).then(result => {
+    Post.deleteOne({ _id: req.params.id ,  creator: req.userData.userId})
+    .then(result => {
         if (result.n > 0) {
             res.status(200).json({ message: "deletion successful!" });
         }else{
             res.status(401).json({ message: "deletion Failed unauthorized!" });
         }
+    }).catch(error =>{
+        res.status(500).json({message: "deleteing  post faild" });
     })
 
 });
